@@ -1,88 +1,157 @@
-# RIFT (Road Identification Following and Tracking)
+An h1 header
+============
 
-A computationally low-intensive method to detect roads in images and follow them. This project is mainly focused on UAV's for surveillance and security measures, but could also be extended to self-driving cars and other autonomus vehicles.
+Paragraphs are separated by a blank line.
 
-## Getting Started
+2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
+look like:
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+  * this one
+  * that one
+  * the other one
 
-### Prerequisites
+Note that --- not considering the asterisk --- the actual text
+content starts at 4-columns in.
 
-What things you need to install the software and how to install them
+> Block quotes are
+> written like so.
+>
+> They can span multiple paragraphs,
+> if you like.
 
-```
-Give examples
-```
+Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
+in chapters 12--14"). Three dots ... will be converted to an ellipsis.
+Unicode is supported. ☺
 
-### Installing
 
-A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
+An h2 header
+------------
 
-```
-Give the example
-```
+Here's a numbered list:
 
-And repeat
+ 1. first item
+ 2. second item
+ 3. third item
 
-```
-until finished
-```
+Note again how the actual text starts at 4 columns in (4 characters
+from the left side). Here's a code sample:
 
-End with an example of getting some data out of the system or using it for a little demo
+    # Let me re-iterate ...
+    for i in 1 .. 10 { do-something(i) }
 
-## Running the tests
+As you probably guessed, indented 4 spaces. By the way, instead of
+indenting the block, you can use delimited blocks, if you like:
 
-Explain how to run the automated tests for this system
+~~~
+define foobar() {
+    print "Welcome to flavor country!";
+}
+~~~
 
-### Break down into end to end tests
+(which makes copying & pasting easier). You can optionally mark the
+delimited block for Pandoc to syntax highlight it:
 
-Explain what these tests test and why
+~~~python
+import time
+# Quick, count to ten!
+for i in range(10):
+    # (but not *too* quick)
+    time.sleep(0.5)
+    print i
+~~~
 
-```
-Give an example
-```
 
-### And coding style tests
 
-Explain what these tests test and why
+### An h3 header ###
 
-```
-Give an example
-```
+Now a nested list:
 
-## Deployment
+ 1. First, get these ingredients:
 
-Add additional notes about how to deploy this on a live system
+      * carrots
+      * celery
+      * lentils
 
-## Built With
+ 2. Boil some water.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+ 3. Dump everything in the pot and follow
+    this algorithm:
 
-## Contributing
+        find wooden spoon
+        uncover pot
+        stir
+        cover pot
+        balance wooden spoon precariously on pot handle
+        wait 10 minutes
+        goto first step (or shut off burner when done)
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+    Do not bump wooden spoon or it will fall.
 
-## Versioning
+Notice again how text always lines up on 4-space indents (including
+that last line which continues item 3 above).
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Here's a link to [a website](http://foo.bar), to a [local
+doc](local-doc.html), and to a [section heading in the current
+doc](#an-h2-header). Here's a footnote [^1].
 
-## Authors
+[^1]: Footnote text goes here.
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+Tables can look like this:
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+size  material      color
+----  ------------  ------------
+9     leather       brown
+10    hemp canvas   natural
+11    glass         transparent
 
-## License
+Table: Shoes, their sizes, and what they're made of
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+(The above is the caption for the table.) Pandoc also supports
+multi-line tables:
 
-## Acknowledgments
+--------  -----------------------
+keyword   text
+--------  -----------------------
+red       Sunsets, apples, and
+          other red or reddish
+          things.
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+green     Leaves, grass, frogs
+          and other things it's
+          not easy being.
+--------  -----------------------
 
+A horizontal rule follows.
+
+***
+
+Here's a definition list:
+
+apples
+  : Good for making applesauce.
+oranges
+  : Citrus!
+tomatoes
+  : There's no "e" in tomatoe.
+
+Again, text is indented 4 spaces. (Put a blank line between each
+term/definition pair to spread things out more.)
+
+Here's a "line block":
+
+| Line one
+|   Line too
+| Line tree
+
+and images can be specified like so:
+
+![example image](example-image.jpg "An exemplary image")
+
+Inline math equations go in like so: $\omega = d\phi / dt$. Display
+math should get its own line and be put in in double-dollarsigns:
+
+$$I = \int \rho R^{2} dV$$
+
+And note that you can backslash-escape any punctuation characters
+which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
