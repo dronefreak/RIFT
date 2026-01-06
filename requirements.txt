@@ -1,0 +1,14 @@
+# Deep Learning Frameworks
+tensorflow>=2.8.0,<3.0.0
+keras>=2.8.0,<3.0.0
+
+# Computer Vision
+opencv-python>=4.5.0
+opencv-contrib-python>=4.5.0
+
+# Scientific Computing
+numpy>=1.21.0
+matplotlib>=3.3.0
+
+# Note: TFLearn is deprecated and should be migrated to TensorFlow/Keras
+# tflearn is not included as it's no longer maintained

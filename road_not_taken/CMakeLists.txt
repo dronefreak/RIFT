@@ -58,11 +58,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate messages in the 'msg' folder
- #add_message_files(
-  # FILES
- #  algomsg.msg
+# add_message_files(
+#   FILES
+#   algomsg.msg
 #   Message2.msg
- #)
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -79,12 +79,15 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
- generate_messages(
-   DEPENDENCIES
-   std_msgs
-   geometry_msgs
-   px4_planner
- )
+# FIXED: Commented out generate_messages since no message files are defined
+# If you need to add custom messages, uncomment the add_message_files section
+# above and this generate_messages section
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+#   geometry_msgs
+#   px4_planner
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##

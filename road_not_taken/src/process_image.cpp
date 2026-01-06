@@ -1,3 +1,14 @@
+/**
+ * @file process_image.cpp
+ * @brief Road detection and segmentation algorithm
+ *
+ * This file implements a hybrid road detection algorithm combining:
+ * - Spectral filtering (RGB color analysis)
+ * - Canny edge detection
+ * - Flood fill region growing
+ * - Centroid-based steering calculation
+ */
+
 #include <stdio.h>
 #include <stdint.h>
 #include <opencv2/opencv.hpp>
@@ -38,12 +49,28 @@ int ratio = 3;
 int kernel_size = 3;
 
 
+/**
+ * @brief Process image to detect road and compute steering angle
+ *
+ * This function implements a hybrid road detection algorithm:
+ * 1. Resize input image to processing size
+ * 2. Apply Canny edge detection
+ * 3. Apply spectral (color-based) filtering to identify road-like pixels
+ * 4. Combine edge and spectral information
+ * 5. Apply flood fill from bottom center to segment road
+ * 6. Compute road centroid and calculate steering angle
+ *
+ * @param cvMat_imgBGR Input image (BGR format)
+ * @param cvMat_outputImgBGRresized Output visualization image
+ * @param f32_steer Output steering angle (normalized, -1 to +1)
+ * @return 0 on success
+ */
 int ProcessImage(cv::Mat cvMat_imgBGR, cv::Mat cvMat_outputImgBGRresized, float &f32_steer)
 {
-	// Read & Resize
-	cv::resize(cvMat_imgBGR, cvMat_imgBGRresized, processedImgSize, 0, 0, cv::INTER_LINEAR); // Bilinear Interpolation
-	
-	// Keep a clone of the input
+	// Read & Resize input image
+	cv::resize(cvMat_imgBGR, cvMat_imgBGRresized, processedImgSize, 0, 0, cv::INTER_LINEAR);
+
+	// Keep a clone of the input for visualization
 	cvMat_outputImgBGRBuffer = cvMat_imgBGRresized.clone();
 	
 	// Split Input Image to RGB Channels
@@ -69,11 +96,12 @@ int ProcessImage(cv::Mat cvMat_imgBGR, cv::Mat cvMat_outputImgBGRresized, float 
 	
 	//////////////////////////////////////////////////////////////////////
 	// Canny Edge Detection
-	
-	cv::cvtColor(cvMat_imgBGRresized, cvMat_imgGrayResized, CV_BGR2GRAY);
+
+	// FIXED: Use cv::COLOR_BGR2GRAY instead of deprecated CV_BGR2GRAY
+	cv::cvtColor(cvMat_imgBGRresized, cvMat_imgGrayResized, cv::COLOR_BGR2GRAY);
 	cv::blur(cvMat_imgGrayResized, cvMat_imgEdges, cv::Size(3,3));
-  	cv::Canny(cvMat_imgEdges, cvMat_imgEdges, lowThreshold, lowThreshold*ratio, kernel_size);
-	
+	cv::Canny(cvMat_imgEdges, cvMat_imgEdges, lowThreshold, lowThreshold*ratio, kernel_size);
+
 	//imshow("Canny Edge Detection", cvMat_imgEdges);
 	//////////////////////////////////////////////////////////////////////
 	
@@ -298,10 +326,11 @@ int ProcessImage(cv::Mat cvMat_imgBGR, cv::Mat cvMat_outputImgBGRresized, float 
 	
 	///////////////////////////////////////////////////////////////////////
 	// Overlay output on input image
-	
-	for (int rowIndex = 0; rowIndex < PROCESSED_IMAGE_HEIGHT; rowIndex++)
+
+	// FIXED: Bounds checking - prevent accessing rowIndex+1, columnIndex+1 out of bounds
+	for (int rowIndex = 0; rowIndex < PROCESSED_IMAGE_HEIGHT - 1; rowIndex++)
 	{
-		for (int columnIndex = 0; columnIndex < PROCESSED_IMAGE_WIDTH; columnIndex++)
+		for (int columnIndex = 0; columnIndex < PROCESSED_IMAGE_WIDTH - 1; columnIndex++)
 		{
 			if (cvMat_imgEdges.at<unsigned char>(rowIndex + 1, columnIndex + 1) == (unsigned char)30)
 			{
@@ -311,7 +340,7 @@ int ProcessImage(cv::Mat cvMat_imgBGR, cv::Mat cvMat_outputImgBGRresized, float 
 			}
 		}
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////
 	
 	// Compute Road Centroid
